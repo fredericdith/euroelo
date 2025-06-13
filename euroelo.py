@@ -156,18 +156,52 @@ with tab3:
     # Then, in your loop, for each team:
     for team in selected_teams:
         st.markdown(f"### {team}")
-        
+
         # Count games for the selected team
         team_game_count = len(team_elo[team_elo['Team'] == team])
 
         current_row = latest_ratings[latest_ratings['Team'] == team].iloc[0]
 
-        col1, col2, col3, col4, col5 = st.columns(5)
-        col1.metric("Rank", f"#{current_row['Rank']}")
-        col2.metric("EuroElo Rating", f"{current_row['EloRating']:.0f}")
-        col3.metric("Rank 12 months ago", f"#{int(current_row['Rank_12mo'])}" if not pd.isna(current_row['Rank_12mo']) else "N/A")
-        col4.metric("EuroElo 12 months ago", f"{int(current_row['EloRating_12mo'])}" if not pd.isna(current_row['EloRating_12mo']) else "N/A")
-        col5.metric("Games in database", f"{team_game_count}")
+        # --- Rank delta ---
+        if not pd.isna(current_row['Rank_12mo']):
+            rank_delta_value = current_row['Rank_12mo'] - current_row['Rank']
+            rank_delta_display = f"{round(rank_delta_value):+} since last year"
+        else:
+            rank_delta_value = None
+            rank_delta_display = "N/A"
+
+        # --- Rating delta ---
+        if not pd.isna(current_row['EloRating_12mo']):
+            rating_delta = current_row['EloRating'] - current_row['EloRating_12mo']
+            rating_delta_display = f"{round(rating_delta, 2):+} since last year"
+        else:
+            rating_delta = None
+            rating_delta_display = "N/A"
+
+        # Create 3 columns
+        col1, col2, col3 = st.columns(3)
+
+        # Rank and rank delta
+        col1.metric(
+            label="Rank",
+            value=f"#{current_row['Rank']}",
+            delta=rank_delta_display if rank_delta_value is not None else None,
+            delta_color="normal"  # green if rank improved (i.e., number got smaller)
+        )
+
+        # Rating and rating delta
+        col2.metric(
+            label="EuroElo Rating",
+            value=f"{current_row['EloRating']:.0f}",
+            delta=rating_delta_display if rating_delta is not None else None
+        )
+
+        # Games in database
+        col3.metric(
+            label="Games in database",
+            value=f"{team_game_count}",
+            delta=""
+        )
 
         team_data = team_elo[team_elo['Team'] == team].sort_values(by='Date', ascending=False).head(20)
         display_data = team_data[['Date', 'Opponent', 'Competition', 'HomeAway', 'Result', 'Delta', 'EloRating']]
