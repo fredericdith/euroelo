@@ -168,7 +168,7 @@ with tab3:
         col4.metric("Rating 12 Months Ago", f"{int(current_row['EloRating_12mo'])}" if not pd.isna(current_row['EloRating_12mo']) else "N/A")
 
         team_data = team_elo[team_elo['Team'] == team].sort_values(by='Date', ascending=False).head(10)
-        display_data = team_data[['Date', 'Opponent', 'HomeAway', 'Result', 'Delta', 'EloRating']]
+        display_data = team_data[['Date', 'Opponent', 'Competition', 'HomeAway', 'Result', 'Delta', 'EloRating']]
         st.dataframe(display_data.reset_index(drop=True))
 
 
