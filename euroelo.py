@@ -109,7 +109,7 @@ with tab2:
     st.table(top_20)  # This will now show only the columns, no index
 
 
-# --- TAB 3 Single team last 10 games ---
+# --- TAB 3 Single team last 20 games ---
 with tab3:
     #st.header("Single team")
 
