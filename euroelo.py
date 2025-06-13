@@ -254,7 +254,7 @@ with tab4:
             ],
         },
         "The 1950+ elite tier 🔝": {
-            "teams": ["Real Madrid", "Barcelona", "Liverpool", "Bayern Munich", "Man City"],
+            "teams": ["Real Madrid", "Liverpool", "Bayern Munich", "Man City"],
             "start_date": datetime.date(2014, 8, 1),
             "end_date": datetime.date.today(),
             "description": "Only 4 clubs have crossed the 1950 EuroElo rating in the past 10 years - and it happened just 7 times. This can be seen as the marker of truly elite tier teams.",
