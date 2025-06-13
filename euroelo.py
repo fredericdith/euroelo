@@ -257,12 +257,11 @@ with tab4:
             "teams": ["Real Madrid", "Barcelona", "Liverpool", "Bayern Munich", "Man City"],
             "start_date": datetime.date(2014, 8, 1),
             "end_date": datetime.date.today(),
-            "description": "Only 5 clubs have crossed the 1950 EuroElo rating in the past 10 years - and it happened just 8 times. This can be seen as the marker of truly elite tier teams.",
+            "description": "Only 4 clubs have crossed the 1950 EuroElo rating in the past 10 years - and it happened just 7 times. This can be seen as the marker of truly elite tier teams.",
         "markers": [
                 ("Real Madrid", datetime.date(2014, 12, 12)),
                 ("Real Madrid", datetime.date(2017, 6, 3)),
                 ("Real Madrid", datetime.date(2024, 6, 1)),
-                ("Barcelona", datetime.date(2016, 3, 16)),
                 ("Bayern Munich", datetime.date(2020, 11, 7)),
                 ("Liverpool", datetime.date(2020, 2, 15)),
                 ("Man City", datetime.date(2021, 5, 5)),
