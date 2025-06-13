@@ -89,12 +89,11 @@ with tab1:
 
     st.plotly_chart(fig, use_container_width=True)
 
-# --- TAB 2 Current top 20 table ---
+# --- TAB 2 Current ranking ---
 with tab2:
     latest_date = team_elo['Date'].max()
     formatted_date = latest_date.strftime("%Y-%m-%d")
 
-    #st.header(f"Current Top 20")
     st.markdown(f"Last update: {formatted_date}")
     latest_before_date = (
         team_elo[team_elo['Date'] <= latest_date]
@@ -103,18 +102,17 @@ with tab2:
         .tail(1)
     )
     latest_before_date['DaysSinceLastGame'] = (latest_date - latest_before_date['Date']).dt.days
-    top_20 = latest_before_date.sort_values(by='EloRating', ascending=False).head(20)
-    top_20 = top_20[['Team', 'DaysSinceLastGame', 'EloRating']].reset_index(drop=True)
-    top_20.insert(0, 'Rank', range(1, len(top_20) + 1))  # Add Rank column
-    st.table(top_20)  # This will now show only the columns, no index
-
+    ranking = latest_before_date.sort_values(by='EloRating', ascending=False).head(20)
+    ranking = ranking[['Team', 'DaysSinceLastGame', 'EloRating']].reset_index(drop=True)
+    ranking.insert(0, 'Rank', range(1, len(ranking) + 1))
+    st.table(ranking)
 
 # --- TAB 3 Single team last 20 games ---
 with tab3:
     #st.header("Single team")
 
     selected_teams = st.multiselect(
-        "Select team(s) to view last 10 games",
+        "Select team(s) to view last 20 games",
         options=sorted(team_elo['Team'].unique())
     )
 
@@ -162,14 +160,14 @@ with tab3:
         current_row = latest_ratings[latest_ratings['Team'] == team].iloc[0]
 
         col1, col2, col3, col4 = st.columns(4)
-        col1.metric("Current Rank", f"#{current_row['Rank']}")
-        col2.metric("Current Elo Rating", f"{current_row['EloRating']:.0f}")
-        col3.metric("Rank 12 Months Ago", f"#{int(current_row['Rank_12mo'])}" if not pd.isna(current_row['Rank_12mo']) else "N/A")
-        col4.metric("Rating 12 Months Ago", f"{int(current_row['EloRating_12mo'])}" if not pd.isna(current_row['EloRating_12mo']) else "N/A")
+        col1.metric("Rank", f"#{current_row['Rank']}")
+        col2.metric("EuroElo Rating", f"{current_row['EloRating']:.0f}")
+        col3.metric("Rank 12 months ago", f"#{int(current_row['Rank_12mo'])}" if not pd.isna(current_row['Rank_12mo']) else "N/A")
+        col4.metric("EuroElo 12 months ago", f"{int(current_row['EloRating_12mo'])}" if not pd.isna(current_row['EloRating_12mo']) else "N/A")
 
-        team_data = team_elo[team_elo['Team'] == team].sort_values(by='Date', ascending=False).head(10)
+        team_data = team_elo[team_elo['Team'] == team].sort_values(by='Date', ascending=False).head(20)
         display_data = team_data[['Date', 'Opponent', 'Competition', 'HomeAway', 'Result', 'Delta', 'EloRating']]
-        st.dataframe(display_data.reset_index(drop=True))
+        st.table(display_data.reset_index(drop=True))
 
 
 # --- TAB 4 Narrative presets ---
