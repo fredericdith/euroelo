@@ -67,7 +67,7 @@ with tab1:
     filtered_dates = team_elo[(team_elo['Date'] >= pd.to_datetime(start_date)) & 
                               (team_elo['Date'] <= pd.to_datetime(end_date))]
 
-    default_teams = ["Liverpool", "Barcelona", "Paris SG", "Bayern Munich", "Napoli", "Sp Lisbon"]
+    default_teams = ["Liverpool", "Barcelona", "Paris SG", "Bayern Munich", "Napoli", "Sporting Lisbon"]
 
     teams = st.multiselect(
         "Select teams to display",
@@ -102,7 +102,7 @@ with tab2:
         .tail(1)
     )
     latest_before_date['DaysSinceLastGame'] = (latest_date - latest_before_date['Date']).dt.days
-    ranking = latest_before_date.sort_values(by='EloRating', ascending=False).head(20)
+    ranking = latest_before_date.sort_values(by='EloRating', ascending=False).head(50)
     ranking = ranking[['Team', 'DaysSinceLastGame', 'EloRating']].reset_index(drop=True)
     ranking.insert(0, 'Rank', range(1, len(ranking) + 1))
     st.table(ranking)
@@ -156,14 +156,18 @@ with tab3:
     # Then, in your loop, for each team:
     for team in selected_teams:
         st.markdown(f"### {team}")
+        
+        # Count games for the selected team
+        team_game_count = len(team_elo[team_elo['Team'] == team])
 
         current_row = latest_ratings[latest_ratings['Team'] == team].iloc[0]
 
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3, col4, col5 = st.columns(5)
         col1.metric("Rank", f"#{current_row['Rank']}")
         col2.metric("EuroElo Rating", f"{current_row['EloRating']:.0f}")
         col3.metric("Rank 12 months ago", f"#{int(current_row['Rank_12mo'])}" if not pd.isna(current_row['Rank_12mo']) else "N/A")
         col4.metric("EuroElo 12 months ago", f"{int(current_row['EloRating_12mo'])}" if not pd.isna(current_row['EloRating_12mo']) else "N/A")
+        col5.metric("Games in database", f"{team_game_count}")
 
         team_data = team_elo[team_elo['Team'] == team].sort_values(by='Date', ascending=False).head(20)
         display_data = team_data[['Date', 'Opponent', 'Competition', 'HomeAway', 'Result', 'Delta', 'EloRating']]
@@ -183,7 +187,7 @@ with tab4:
             "description": "Leverkusen went undefeated and won their first-ever Bundesliga title in 2023–24, under Xabi Alonso. This season marks a major historical breakthrough.",
         },    
         "Pep Guardiola's rise to the top 🔝": {
-            "teams": ["Man City", "Liverpool"],
+            "teams": ["Manchester City", "Liverpool"],
             "start_date": datetime.date(2008, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2016, 2, 1), datetime.date(2023, 6, 1)),
@@ -197,19 +201,19 @@ with tab4:
             "start_date": datetime.date(2013, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2019, 11, 3), datetime.date(2021, 6, 30)),
-            "description": "Bayern's 2020 team under Hansi Flick (2019-11-03 to 2021-06-30) dominated every opponent, winning the Champions League with a perfect record and crushing top teams (like Barcelona 8–2), leading to a record high EuroElo of 2,002.144 on Nov 7th 2020.",
+            "description": "Bayern's 2020 team under Hansi Flick (2019-11-03 to 2021-06-30) dominated every opponent, winning the Champions League with a perfect record and crushing top teams (like Barcelona 8–2), leading to a record high EuroElo of 2,026 on Nov 7th 2020.",
         "markers": [
                 ("Bayern Munich", datetime.date(2020, 11, 7)),
             ],
         },  
         "PSG vs Premier league (season 2024-25) 🇫🇷🆚🇬🇧": {
-            "teams": ["Paris SG", "Liverpool", "Man City", "Aston Villa", "Arsenal"],
+            "teams": ["Paris SG", "Liverpool", "Manchester City", "Aston Villa", "Arsenal"],
             "start_date": datetime.date(2024, 8, 1),
             "end_date": datetime.date.today(),
             "description": "Paris SG defeated Liverpool (1st in PL), Arsenal (2nd), Manchester City (3rd) and Aston Villa (6th) on their way to winning their first Champions League, and reached the top of the EuroElo ranking for the first time ever.",  
         }, 
         "Chelsea won the 2021 CL, but... 🤔": {
-            "teams": ["Chelsea", "Man City"],
+            "teams": ["Chelsea", "Manchester City"],
             "start_date": datetime.date(2020, 8, 1),
             "end_date": datetime.date(2021, 7, 31),
             "highlight_period": (datetime.date(2021, 5, 23), datetime.date(2021, 5, 30)),
@@ -230,57 +234,61 @@ with tab4:
             "description": "On 20 December 2019, Mikel Arteta was appointed head coach at his former club Arsenal. Five years later, the club might be the best it's ever been since the end of the Wenger era (1996-2018), despite not winning any trophy since 2020-21 (FA Cup).",
         },
         "A story of two Manchesters 🟦🆚🟥": {
-            "teams": ["Man City", "Man United"],
+            "teams": ["Manchester City", "Manchester United"],
             "start_date": datetime.date(1999, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(1999, 8, 1), datetime.date(2013, 8, 1)),
             "description": "Since Sir Alex Ferguson left Manchester United on May 8th 2013, it's been pretty bad.",
         },    
         "Treble winners ⭐️⭐️⭐️": {
-            "teams": ["Barcelona", "Inter", "Bayern Munich", "Man City", "Paris SG"],
+            "teams": ["Barcelona", "Inter Milan", "Bayern Munich", "Manchester City", "Paris SG"],
             "start_date": datetime.date(2008, 8, 1),
             "end_date": datetime.date.today(),
             "description": "With the exception of 2009-10 Inter, every treble winning team (domestic league, domestic cup and Champions League) ended the season at the top of the EuroElo ranking.",
         "markers": [
                 ("Barcelona", datetime.date(2009, 5, 27)),
-                ("Inter", datetime.date(2010, 5, 22)),
+                ("Inter Milan", datetime.date(2010, 5, 22)),
                 ("Bayern Munich", datetime.date(2013, 5, 25)),
                 ("Barcelona", datetime.date(2015, 6, 6)),
                 ("Bayern Munich", datetime.date(2020, 8, 23)),
-                ("Man City", datetime.date(2023, 6, 10)),
+                ("Manchester City", datetime.date(2023, 6, 10)),
                 ("Paris SG", datetime.date(2025, 5, 31)),
             ],
         },
         "The 1950+ elite tier 🔝": {
-            "teams": ["Real Madrid", "Liverpool", "Bayern Munich", "Man City"],
+            "teams": ["Barcelona", "Real Madrid", "Liverpool", "Bayern Munich", "Manchester City"],
             "start_date": datetime.date(2014, 8, 1),
             "end_date": datetime.date.today(),
-            "description": "Only 4 clubs have crossed the 1950 EuroElo rating in the past 10 years - and it happened just 7 times. This can be seen as the marker of truly elite tier teams.",
+            "description": "Only 5 clubs have crossed the 1950 EuroElo rating in the past 10 years. This can be seen as the marker of truly elite tier teams.",
         "markers": [
+                ("Barcelona", datetime.date(2012, 4, 14)),
+                ("Barcelona", datetime.date(2016, 3, 16)),
+                ("Barcelona", datetime.date(2019, 5, 1)),
                 ("Real Madrid", datetime.date(2014, 12, 12)),
                 ("Real Madrid", datetime.date(2017, 6, 3)),
                 ("Real Madrid", datetime.date(2024, 6, 1)),
                 ("Bayern Munich", datetime.date(2020, 11, 7)),
                 ("Liverpool", datetime.date(2020, 2, 15)),
-                ("Man City", datetime.date(2021, 5, 5)),
-                ("Man City", datetime.date(2024, 9, 14)),
+                ("Liverpool", datetime.date(2022, 5, 3)),
+                ("Manchester City", datetime.date(2021, 5, 5)),
+                ("Manchester City", datetime.date(2024, 9, 14)),
             ],
         },
         "There is no Big 6 in the PL anymore": {
-            "teams": ["Arsenal", "Liverpool", "Man City", "Man United", "Tottenham", "Chelsea"],
+            "teams": ["Arsenal", "Liverpool", "Manchester City", "Manchester United", "Tottenham", "Chelsea"],
             "start_date": datetime.date(2015, 8, 1),
             "end_date": datetime.date.today(),
             #"highlight_period": (datetime.date(2019, 12, 20), datetime.date.today()),
             "description": "Until the end of the 2016-17 season, the Big 6 was clearly above the rest of the PL. Since then, two clubs (Liverpool and Man City) started distancing themselves the rest of the pack. At the end of the 2024-25 season, it looks like a Big 3 more than a Big 6.",
         },
         "Arab Money 🛢️": {
-            "teams": ["Man City", "Paris SG"],
+            "teams": ["Manchester City", "Paris SG"],
             "start_date": datetime.date(1990, 1, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2008, 5, 23), datetime.date.today()),
             "description": "Manchester City's investment journey began in September 2008 when Sheikh Mansour bin Zayed Al Nahyan acquired the club through the Abu Dhabi United Group. In France, backed by the Qatari government, QSI acquired a majority stake in 2011 and then became the Parisian outfit's sole owner in 2012.",
             "markers": [
-                ("Man City", datetime.date(2008, 9, 1)),
+                ("Manchester City", datetime.date(2008, 9, 1)),
                 ("Paris SG", datetime.date(2011, 6, 1)),
                 ("Paris SG", datetime.date(2012, 3, 1)),
             ],
