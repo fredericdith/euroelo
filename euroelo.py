@@ -165,7 +165,7 @@ with tab3:
         # --- Rank delta ---
         if not pd.isna(current_row['Rank_12mo']):
             rank_delta_value = current_row['Rank_12mo'] - current_row['Rank']
-            rank_delta_display = f"{round(rank_delta_value):+} since last year"
+            rank_delta_display = f"{round(rank_delta_value):+} vs last season"
         else:
             rank_delta_value = None
             rank_delta_display = "N/A"
@@ -173,7 +173,7 @@ with tab3:
         # --- Rating delta ---
         if not pd.isna(current_row['EloRating_12mo']):
             rating_delta = current_row['EloRating'] - current_row['EloRating_12mo']
-            rating_delta_display = f"{round(rating_delta, 2):+} since last year"
+            rating_delta_display = f"{round(rating_delta, 2):+} vs last season"
         else:
             rating_delta = None
             rating_delta_display = "N/A"
