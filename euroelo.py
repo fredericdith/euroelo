@@ -122,15 +122,15 @@ with tab2:
     ranking = latest_before_date.merge(ratings_12mo_df, on='Team', how='left')
 
     # Calculate delta
-    ranking['vs last season'] = ranking['EloRating'] - ranking['EloRating_12mo']
-    ranking['vs last season'] = ranking['vs last season'].apply(lambda x: f"{x:+.2f}" if pd.notna(x) else "N/A")
+    ranking['vs previous season'] = ranking['EloRating'] - ranking['EloRating_12mo']
+    ranking['vs previous season'] = ranking['vs previous season'].apply(lambda x: f"{x:+.2f}" if pd.notna(x) else "N/A")
 
     # Round EloRating and format as string with 2 decimals
     ranking['EloRating'] = ranking['EloRating'].apply(lambda x: f"{x:,.2f}")
 
     # Prepare and display top 50
     ranking = ranking.sort_values(by='EloRating', ascending=False).head(50)
-    ranking = ranking[['Team', 'DaysSinceLastGame', 'EloRating', 'vs last season']].reset_index(drop=True)
+    ranking = ranking[['Team', 'DaysSinceLastGame', 'EloRating', 'vs previous season']].reset_index(drop=True)
     ranking.insert(0, 'Rank', range(1, len(ranking) + 1))
 
     st.table(ranking)
@@ -191,7 +191,7 @@ with tab3:
         # --- Rank delta ---
         if not pd.isna(current_row['Rank_12mo']):
             rank_delta_value = current_row['Rank_12mo'] - current_row['Rank']
-            rank_delta_display = f"{round(rank_delta_value):+} vs last season"
+            rank_delta_display = f"{round(rank_delta_value):+} vs previous season"
         else:
             rank_delta_value = None
             rank_delta_display = "N/A"
@@ -199,7 +199,7 @@ with tab3:
         # --- Rating delta ---
         if not pd.isna(current_row['EloRating_12mo']):
             rating_delta = current_row['EloRating'] - current_row['EloRating_12mo']
-            rating_delta_display = f"{round(rating_delta, 2):+} vs last season"
+            rating_delta_display = f"{round(rating_delta, 2):+} vs previous season"
         else:
             rating_delta = None
             rating_delta_display = "N/A"
@@ -244,14 +244,14 @@ with tab4:
     st.header("Narratives (⚠️ EXPERIMENTAL ⚠️)")
 
     narratives = {
-        "Xabi Alonso's historical run with Leverkusen ⬛️🟥": {
+        "Xabi Alonso's undefeated run with Leverkusen": {
             "teams": ["Leverkusen", "Bayern Munich"],
             "start_date": datetime.date(2004, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2023, 6, 1), datetime.date(2024, 6, 1)),
             "description": "Leverkusen went undefeated and won their first-ever Bundesliga title in 2023–24, under Xabi Alonso. They fell 4 points short of closing a 224-point gap with Bayern Munich in a single season.",
         },         
-        "Hansi Flick's 2020 Bayern is the GOAT 🐐": {
+        "Hansi Flick's 2020 Bayern is the GOAT": {
             "teams": ["Bayern Munich"],
             "start_date": datetime.date(2013, 8, 1),
             "end_date": datetime.date.today(),
@@ -261,41 +261,41 @@ with tab4:
                 ("Bayern Munich", datetime.date(2020, 11, 7)),
             ],
         },  
-        "PSG vs Premier league (season 2024-25) 🇫🇷🆚🇬🇧": {
+        "PSG rules the Premier league (season 2024-25)": {
             "teams": ["Paris SG", "Liverpool", "Manchester City", "Aston Villa", "Arsenal"],
             "start_date": datetime.date(2024, 8, 1),
             "end_date": datetime.date.today(),
             "description": "Paris SG defeated Liverpool (1st in PL), Arsenal (2nd), Manchester City (3rd) and Aston Villa (6th) on their way to winning their first Champions League, and reached the top of the EuroElo ranking for the first time ever.",  
         }, 
-        "Chelsea won the 2021 CL, but... 🤔": {
+        "Chelsea won the 2021 CL, but...": {
             "teams": ["Chelsea", "Manchester City"],
             "start_date": datetime.date(2020, 8, 1),
             "end_date": datetime.date(2021, 7, 31),
             "highlight_period": (datetime.date(2021, 5, 23), datetime.date(2021, 5, 30)),
             "description": "Despite winning the Champions League final against Manchester City, Chelsea ended the season below their rivals in terms of EuroElo rating.",
         },
-        "French League 1 since 2000 🇫🇷": {
+        "French League 1 since 2000": {
             "teams": ["Lyon", "Paris SG", "Marseille", "Lille"],
             "start_date": datetime.date(2000, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2011, 8, 1), datetime.date.today()),
             "description": "Lyon heavily dominated the French league until 2007-08 (the last of a series of 7 consecutive titles). 2008 to 2011 saw four different winners in four years. Then Paris SG took over in 2012, winning 11 of the next 13 seasons.",
         },
-        "Mikel Arteta might be cooking ⬜️🟥🧑‍🍳": {
+        "Mikel Arteta might be cooking": {
             "teams": ["Arsenal", "Manchester City"],
             "start_date": datetime.date(2016, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2019, 12, 20), datetime.date.today()),
             "description": "Guardiola turned an already great team into one of the best club sides ever. Arteta, on the other hand, has taken Arsenal from a mid-table slump back to the elite, and has done so more quickly in terms of Elo growth. While Pep’s success is proven with silverware, Arteta’s numbers suggest a trajectory that could lead there soon.",
         },
-        "A story of two Manchesters 🟦🆚🟥": {
+        "A story of two Manchesters": {
             "teams": ["Manchester City", "Manchester United"],
             "start_date": datetime.date(1999, 8, 1),
-            "end_date": datetime.date.today(),
+            "end_date": datetime.date(2024, 6, 1),
             "highlight_period": (datetime.date(1999, 8, 1), datetime.date(2013, 8, 1)),
             "description": "Sir Alex Ferguson's last season as United manager (2012-13) was the moment when City took over the Premier League.",
         },    
-        "Treble winners ⭐️⭐️⭐️": {
+        "Treble winners": {
             "teams": ["Barcelona", "Inter Milan", "Bayern Munich", "Manchester City", "Paris SG"],
             "start_date": datetime.date(2008, 8, 1),
             "end_date": datetime.date.today(),
@@ -310,7 +310,7 @@ with tab4:
                 ("Paris SG", datetime.date(2025, 5, 31)),
             ],
         },
-        "The 1950+ elite tier 🔝": {
+        "The 1950+ elite tier": {
             "teams": ["Barcelona", "Real Madrid", "Liverpool", "Bayern Munich", "Manchester City"],
             "start_date": datetime.date(2014, 8, 1),
             "end_date": datetime.date.today(),
