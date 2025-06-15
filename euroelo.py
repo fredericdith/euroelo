@@ -413,7 +413,7 @@ One week a team is “finished.” The next, they’re “back.” On social med
 
 EuroElo is a push against that trend. It’s a dynamic system that tracks the evolution of European football clubs over time. Unlike weekly power rankings or short-lived form tables, EuroElo blends both domestic and European competitions, weighing every result — from routine league matches to the Champions League final — into a consistent rating scale.
 
-The goal isn’t to go viral. The goal is to understand where a team has been, how far they’ve come, and where they might be headed in the long run.
+The goal isn’t to go viral. The goal is to gain perspective and understand where a team has been, how far they’ve come, and where they might be headed in the long run.
 
 ### How it works
 
