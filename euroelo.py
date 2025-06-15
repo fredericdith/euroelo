@@ -56,7 +56,7 @@ with tab1:
 
     min_date = team_elo['Date'].min()
     max_date = team_elo['Date'].max()
-    default_start = datetime.date(2024, 8, 15)
+    default_start = datetime.date(2024, 5, 15)
     start_date, end_date = st.date_input(
         "Select date range for chart",
         value=(default_start, max_date),
