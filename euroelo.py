@@ -343,12 +343,12 @@ with tab4:
             "highlight_period": (datetime.date(2021, 7, 1), datetime.date(2024, 6, 1)),
             "description": "Between 2021 and 2024, football witnessed a unique tactical triangle: Klopp’s high-intensity pressing, Guardiola’s positional control, and Ancelotti’s adaptive mastery. For three years, these three giants shaped Europe’s biggest games and trophies.",
         }, 
-        "Arab Money 🛢️": {
+        "Arab Money": {
             "teams": ["Manchester City", "Paris SG"],
-            "start_date": datetime.date(1990, 1, 1),
+            "start_date": datetime.date(2004, 1, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2008, 5, 23), datetime.date.today()),
-            "description": "Manchester City's investment journey began in September 2008 when Sheikh Mansour bin Zayed Al Nahyan acquired the club through the Abu Dhabi United Group. In France, backed by the Qatari government, QSI acquired a majority stake in 2011 and then became the Parisian outfit's sole owner in 2012.",
+            "description": "Manchester City's investment journey began in September 2008 when Sheikh Mansour bin Zayed Al Nahyan acquired the club through the Abu Dhabi United Group. In France, backed by the Qatari government, QSI acquired a majority stake in 2011 and then became the Parisian outfit's sole owner in 2012. Their growths have been remarkably parallel.",
             "markers": [
                 ("Manchester City", datetime.date(2008, 9, 1)),
                 ("Paris SG", datetime.date(2011, 6, 1)),
