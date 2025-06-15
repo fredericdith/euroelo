@@ -246,7 +246,7 @@ with tab4:
     narratives = {
         "Xabi Alonso's undefeated run with Leverkusen": {
             "teams": ["Leverkusen", "Bayern Munich"],
-            "start_date": datetime.date(2004, 8, 1),
+            "start_date": datetime.date(2022, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2023, 6, 1), datetime.date(2024, 6, 1)),
             "description": "Leverkusen went undefeated and won their first-ever Bundesliga title in 2023–24, under Xabi Alonso. They fell 4 points short of closing a 224-point gap with Bayern Munich in a single season.",
