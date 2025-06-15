@@ -218,24 +218,14 @@ with tab4:
             "start_date": datetime.date(2004, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2023, 6, 1), datetime.date(2024, 6, 1)),
-            "description": "Leverkusen went undefeated and won their first-ever Bundesliga title in 2023–24, under Xabi Alonso. This season marks a major historical breakthrough.",
-        },    
-        "Pep Guardiola's rise to the top 🔝": {
-            "teams": ["Manchester City", "Liverpool"],
-            "start_date": datetime.date(2008, 8, 1),
-            "end_date": datetime.date.today(),
-            "highlight_period": (datetime.date(2016, 2, 1), datetime.date(2023, 6, 1)),
-            "description": "On 1 February 2016, Manchester City signed Guardiola for the start of the 2016–17 season. Guardiola guided City to their first Champions League final in 2020–21, and their first Champions League title as part of his second continental treble in 2022–23.",
-            "markers": [
-                ("Man City", datetime.date(2023, 6, 10)),
-            ],
-        },      
+            "description": "Leverkusen went undefeated and won their first-ever Bundesliga title in 2023–24, under Xabi Alonso. They fell 4 points short of closing a 224-point gap with Bayern Munich in a single season.",
+        },         
         "Hansi Flick's 2020 Bayern is the GOAT 🐐": {
             "teams": ["Bayern Munich"],
             "start_date": datetime.date(2013, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2019, 11, 3), datetime.date(2021, 6, 30)),
-            "description": "Bayern's 2020 team under Hansi Flick (2019-11-03 to 2021-06-30) dominated every opponent, winning the Champions League with a perfect record and crushing top teams (like Barcelona 8–2), leading to a record high EuroElo of 2,026 on Nov 7th 2020.",
+            "description": "Bayern's 2020 team under Hansi Flick (2019-11-03 to 2021-06-30) dominated every opponent, winning the Champions League with a perfect record and crushing top teams, leading to a record high EuroElo of 2,026 on Nov 7th 2020.",
         "markers": [
                 ("Bayern Munich", datetime.date(2020, 11, 7)),
             ],
@@ -251,7 +241,7 @@ with tab4:
             "start_date": datetime.date(2020, 8, 1),
             "end_date": datetime.date(2021, 7, 31),
             "highlight_period": (datetime.date(2021, 5, 23), datetime.date(2021, 5, 30)),
-            "description": "Despite winning the Champions League final against Manchester City, Chelsea ended the season below their rivals in terms of EuroElo rating.",  
+            "description": "Despite winning the Champions League final against Manchester City, Chelsea ended the season below their rivals in terms of EuroElo rating.",
         },
         "French League 1 since 2000 🇫🇷": {
             "teams": ["Lyon", "Paris SG", "Marseille", "Lille"],
@@ -261,18 +251,18 @@ with tab4:
             "description": "Lyon heavily dominated the French league until 2007-08 (the last of a series of 7 consecutive titles). 2008 to 2011 saw four different winners in four years. Then Paris SG took over in 2012, winning 11 of the next 13 seasons.",
         },
         "Mikel Arteta might be cooking ⬜️🟥🧑‍🍳": {
-            "teams": ["Arsenal"],
-            "start_date": datetime.date(1996, 8, 1),
+            "teams": ["Arsenal", "Manchester City"],
+            "start_date": datetime.date(2016, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(2019, 12, 20), datetime.date.today()),
-            "description": "On 20 December 2019, Mikel Arteta was appointed head coach at his former club Arsenal. Five years later, the club might be the best it's ever been since the end of the Wenger era (1996-2018), despite not winning any trophy since 2020-21 (FA Cup).",
+            "description": "Guardiola turned an already great team into one of the best club sides ever. Arteta, on the other hand, has taken Arsenal from a mid-table slump back to the elite, and has done so more quickly in terms of Elo growth. While Pep’s success is proven with silverware, Arteta’s numbers suggest a trajectory that could lead there soon.",
         },
         "A story of two Manchesters 🟦🆚🟥": {
             "teams": ["Manchester City", "Manchester United"],
             "start_date": datetime.date(1999, 8, 1),
             "end_date": datetime.date.today(),
             "highlight_period": (datetime.date(1999, 8, 1), datetime.date(2013, 8, 1)),
-            "description": "Since Sir Alex Ferguson left Manchester United on May 8th 2013, it's been pretty bad.",
+            "description": "Sir Alex Ferguson's last season as United manager (2012-13) was the moment when City took over the Premier League.",
         },    
         "Treble winners ⭐️⭐️⭐️": {
             "teams": ["Barcelona", "Inter Milan", "Bayern Munich", "Manchester City", "Paris SG"],
@@ -293,7 +283,7 @@ with tab4:
             "teams": ["Barcelona", "Real Madrid", "Liverpool", "Bayern Munich", "Manchester City"],
             "start_date": datetime.date(2014, 8, 1),
             "end_date": datetime.date.today(),
-            "description": "Only 5 clubs have crossed the 1950 EuroElo rating in the past 10 years. This can be seen as the marker of truly elite tier teams.",
+            "description": "Only 5 clubs have crossed the 1950 EuroElo rating in the past 10 years. This can be seen as the marker of truly elite teams.",
         "markers": [
                 ("Barcelona", datetime.date(2012, 4, 14)),
                 ("Barcelona", datetime.date(2016, 3, 16)),
@@ -308,13 +298,20 @@ with tab4:
                 ("Manchester City", datetime.date(2024, 9, 14)),
             ],
         },
-        "There is no Big 6 in the PL anymore": {
+        "The Premier League's 'Big 6' era is over": {
             "teams": ["Arsenal", "Liverpool", "Manchester City", "Manchester United", "Tottenham", "Chelsea"],
             "start_date": datetime.date(2015, 8, 1),
             "end_date": datetime.date.today(),
             #"highlight_period": (datetime.date(2019, 12, 20), datetime.date.today()),
-            "description": "Until the end of the 2016-17 season, the Big 6 was clearly above the rest of the PL. Since then, two clubs (Liverpool and Man City) started distancing themselves the rest of the pack. At the end of the 2024-25 season, it looks like a Big 3 more than a Big 6.",
+            "description": "Until the end of the 2016-17 season, the Big 6 was clearly above the rest of the PL. At the end of the 2024-25 season, it looks like a Big 3 more than a Big 6 (statistically: the EuroElo standard deviation of this Big 6 went from 31 in 2017 to 87 in 2025).",
         },
+        "Pep, Jürgen & Carlo": {
+            "teams": ["Manchester City", "Liverpool", "Real Madrid"],
+            "start_date": datetime.date(2020, 7, 1),
+            "end_date": datetime.date.today(),
+            "highlight_period": (datetime.date(2021, 7, 1), datetime.date(2024, 6, 1)),
+            "description": "Between 2021 and 2024, football witnessed a unique tactical triangle: Klopp’s high-intensity pressing, Guardiola’s positional control, and Ancelotti’s adaptive mastery. For three years, these three giants shaped Europe’s biggest games and trophies.",
+        }, 
         "Arab Money 🛢️": {
             "teams": ["Manchester City", "Paris SG"],
             "start_date": datetime.date(1990, 1, 1),
@@ -326,13 +323,7 @@ with tab4:
                 ("Paris SG", datetime.date(2011, 6, 1)),
                 ("Paris SG", datetime.date(2012, 3, 1)),
             ],
-        },
-        "Messi vs Ronaldo (La Liga years) 🇪🇸": {
-            "teams": ["Barcelona", "Real Madrid"],
-            "start_date": datetime.date(2009, 8, 1),
-            "end_date": datetime.date(2018, 7, 31),
-            "description": "Overview of the years when both players were both active in La Liga.",  
-        },       
+        },     
     }
 
     selected_narrative = st.selectbox("Choose a narrative", ["None"] + list(narratives.keys()))
@@ -416,33 +407,39 @@ with tab4:
 with tab5:
     st.markdown(
         """ 
-        ## About EuroElo
+## Modern football culture moves fast — too fast.
 
-    TLDR: EuroElo essentially treats all European clubs as if they were competing in a single, unified competition—regardless of the actual leagues or cups they play in. By combining match results across domestic leagues, cups, and European tournaments and applying a consistent rating update method, it ranks teams on one continuous scale.
+One week a team is “finished.” The next, they’re “back.” On social media, every goal sparks a hot take, every clip is judged in isolation, and every post is designed to go viral — not to inform. The bigger picture gets lost.
 
-    Long version: EuroElo is a dynamic rating system that tracks the strength of European football clubs over time. Each match affects a team's rating based on the result and the opponent's quality. Some matches carry more weight — especially later-stage games in major competitions like the Champions League. To account for this, EuroElo adjusts match weight based on:
-    - the competition (e.g., league vs. Champions League)
-    - the stage of the competition (e.g., group stage vs. final)
+EuroElo is a push against that trend. It’s a dynamic system that tracks the evolution of European football clubs over time. Unlike weekly power rankings or short-lived form tables, EuroElo blends both domestic and European competitions, weighing every result — from routine league matches to the Champions League final — into a consistent rating scale.
 
-    As tournaments progress, matches have a bigger impact — especially in the final rounds.
+The goal isn’t to go viral. The goal is to understand where a team has been, how far they’ve come, and where they might be headed in the long run.
 
-    | Stage     | Domestic league | Domestic cup | Conference League | Europa League | Champions League |
-    |-----------|-----------------|--------------|-------------------|---------------|------------------|
-    | 0 (group) | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜           |
-    | 1 (1/16)  | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩⬜⬜⬜⬜       | 🟩🟩⬜⬜⬜           |
-    | 2 (1/8)   | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩🟩⬜⬜⬜       | 🟩🟩⬜⬜⬜           |
-    | 3 (1/4)   | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩🟩⬜⬜⬜       | 🟩🟩⬜⬜⬜           |
-    | 4 (1/2)   | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩🟩⬜⬜⬜          | 🟩🟩⬜⬜⬜       | 🟩🟩🟩⬜⬜           |
-    | 5 (final) | 🟩⬜⬜⬜⬜       | 🟩🟩⬜⬜⬜    | 🟩🟩⬜⬜⬜          | 🟩🟩🟩⬜⬜       | 🟩🟩🟩🟩⬜           |
+### How it works
 
-    This model is designed to:
-    - Reward consistent success
-    - Recognize deep runs in European competitions
-    - Reflect the true prestige of key victories, like winning a final trophy
+EuroElo is a dynamic Elo-based rating system that tracks the strength of European football clubs over time. Each match affects a team's rating based on the result and the opponent's quality. Some matches carry more weight — especially later-stage games in major competitions like the Champions League. To account for this, EuroElo adjusts match weight based on:
+- the competition (e.g., domestic league vs. Champions League)
+- the stage of the competition (e.g., group stage vs. semi final vs. final)
 
-    It balances long-term form with short-term impact, creating a fair and evolving picture of who the strongest teams in Europe really are.
-        """
-    )
+As tournaments progress, matches have a bigger impact — especially in the final rounds.
+
+| Stage     | Domestic league | Domestic cup | Conference League | Europa League | Champions League |
+|-----------|-----------------|--------------|-------------------|---------------|------------------|
+| 0 (group) | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜           |
+| 1 (1/16)  | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩⬜⬜⬜⬜       | 🟩🟩⬜⬜⬜           |
+| 2 (1/8)   | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩🟩⬜⬜⬜       | 🟩🟩⬜⬜⬜           |
+| 3 (1/4)   | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩⬜⬜⬜⬜          | 🟩🟩⬜⬜⬜       | 🟩🟩⬜⬜⬜           |
+| 4 (1/2)   | 🟩⬜⬜⬜⬜       | 🟩⬜⬜⬜⬜    | 🟩🟩⬜⬜⬜          | 🟩🟩⬜⬜⬜       | 🟩🟩🟩⬜⬜           |
+| 5 (final) | 🟩⬜⬜⬜⬜       | 🟩🟩⬜⬜⬜    | 🟩🟩⬜⬜⬜          | 🟩🟩🟩⬜⬜       | 🟩🟩🟩🟩⬜           |
+
+This model is designed to:
+- Reward consistent success
+- Recognize deep runs in European competitions
+- Reflect the true prestige of key victories, like winning a final trophy
+
+It balances long-term form with short-term impact, creating a fair and evolving picture of who the strongest teams in Europe really are.    
+    """
+)
 
     num_teams = team_elo['Team'].nunique()
     num_games = len(team_elo) // 2  # Each match has 2 rows (home & away)
