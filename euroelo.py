@@ -93,8 +93,9 @@ with tab1:
 with tab2:
     latest_date = team_elo['Date'].max()
     formatted_date = latest_date.strftime("%Y-%m-%d")
-
     st.markdown(f"Last update: {formatted_date}")
+
+    # Get latest Elo per team
     latest_before_date = (
         team_elo[team_elo['Date'] <= latest_date]
         .sort_values(['Team', 'Date'])
@@ -102,15 +103,40 @@ with tab2:
         .tail(1)
     )
     latest_before_date['DaysSinceLastGame'] = (latest_date - latest_before_date['Date']).dt.days
-    ranking = latest_before_date.sort_values(by='EloRating', ascending=False).head(50)
-    ranking = ranking[['Team', 'DaysSinceLastGame', 'EloRating']].reset_index(drop=True)
+
+    # Get Elo rating from ~12 months ago
+    cutoff_date = latest_date - pd.DateOffset(years=1)
+    ratings_12mo = []
+
+    for team in latest_before_date['Team']:
+        past_data = team_elo[(team_elo['Team'] == team) & (team_elo['Date'] <= cutoff_date)]
+        if not past_data.empty:
+            past_rating = past_data.sort_values('Date', ascending=False).iloc[0]['EloRating']
+        else:
+            past_rating = float('nan')
+        ratings_12mo.append({'Team': team, 'EloRating_12mo': past_rating})
+
+    ratings_12mo_df = pd.DataFrame(ratings_12mo)
+
+    # Merge into latest data
+    ranking = latest_before_date.merge(ratings_12mo_df, on='Team', how='left')
+
+    # Calculate delta
+    ranking['vs last season'] = ranking['EloRating'] - ranking['EloRating_12mo']
+    ranking['vs last season'] = ranking['vs last season'].apply(lambda x: f"{x:+.2f}" if pd.notna(x) else "N/A")
+
+    # Round EloRating and format as string with 2 decimals
+    ranking['EloRating'] = ranking['EloRating'].apply(lambda x: f"{x:,.2f}")
+
+    # Prepare and display top 50
+    ranking = ranking.sort_values(by='EloRating', ascending=False).head(50)
+    ranking = ranking[['Team', 'DaysSinceLastGame', 'EloRating', 'vs last season']].reset_index(drop=True)
     ranking.insert(0, 'Rank', range(1, len(ranking) + 1))
+
     st.table(ranking)
 
 # --- TAB 3 Single team last 20 games ---
 with tab3:
-    #st.header("Single team")
-
     selected_teams = st.multiselect(
         "Select team(s) to view last 20 games",
         options=sorted(team_elo['Team'].unique())
@@ -192,19 +218,24 @@ with tab3:
         # Rating and rating delta
         col2.metric(
             label="EuroElo Rating",
-            value=f"{current_row['EloRating']:.0f}",
+            value=f"{current_row['EloRating']:,.2f}",
             delta=rating_delta_display if rating_delta is not None else None
         )
 
         # Games in database
         col3.metric(
             label="Games in database",
-            value=f"{team_game_count}",
+            value=f"{team_game_count:,d}",
             delta=""
         )
 
         team_data = team_elo[team_elo['Team'] == team].sort_values(by='Date', ascending=False).head(20)
-        display_data = team_data[['Date', 'Opponent', 'Competition', 'HomeAway', 'Result', 'Delta', 'EloRating']]
+        display_data = team_data[['Date', 'Opponent', 'Competition', 'HomeAway', 'Result', 'Delta', 'EloRating']].copy()
+
+        # Round and format 'Delta' and 'EloRating' columns
+        display_data['Delta'] = display_data['Delta'].apply(lambda x: f"{x:+,.2f}" if pd.notna(x) else "N/A")
+        display_data['EloRating'] = display_data['EloRating'].apply(lambda x: f"{x:,.2f}")
+
         st.table(display_data.reset_index(drop=True))
 
 
